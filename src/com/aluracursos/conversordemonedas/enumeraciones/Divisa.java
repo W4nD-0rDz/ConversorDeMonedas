@@ -1,6 +1,7 @@
 package com.aluracursos.conversordemonedas.enumeraciones;
 
-public enum Moneda {
+public enum Divisa {
+
     USD("Dólar estadounidense", "USD", "$"),
     AED("Dirham de los Emiratos Árabes Unidos", "AED", "د.إ"),
     AFN("Afgani afgano", "AFN", "؋"),
@@ -167,7 +168,7 @@ public enum Moneda {
     private final String sigla;
     private final String simbolo;
 
-    Moneda(String nombreCompleto, String sigla, String simbolo) {
+    Divisa(String nombreCompleto, String sigla, String simbolo) {
         this.nombreCompleto = nombreCompleto;
         this.sigla = sigla;
         this.simbolo = simbolo;
@@ -183,6 +184,11 @@ public enum Moneda {
 
     public String getSimbolo() {
         return simbolo;
+    }
+
+    @Override
+    public String toString() {
+        return  sigla + " - " + nombreCompleto;
     }
 }
 

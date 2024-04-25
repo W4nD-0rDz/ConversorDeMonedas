@@ -2,35 +2,42 @@ package com.aluracursos.conversordemonedas.modelos;
 
 public class Moneda {
 
-    private String monedaBase;
-    private String monedaSalida;
+    private String sigla;
+    private String nombreCompleto;
+    private String simbolo;
 
-    public Moneda(String monedaBase, String monedaSalida) {
-        this.monedaBase = monedaBase;
-        this.monedaSalida = monedaSalida;
+    public Moneda(String sigla, String nombreCompleto, String simbolo) {
+        this.sigla = sigla;
+        this.nombreCompleto = nombreCompleto;
+        this.simbolo = simbolo;
     }
 
-    public String getMonedaBase() {
-        return monedaBase;
+    public String getSigla() {
+        return sigla;
     }
 
-    public void setMonedaBase(String monedaBase) {
-        this.monedaBase = monedaBase;
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
     }
 
-    public String getMonedaSalida() {
-        return monedaSalida;
+    public String getSimbolo() {
+        return simbolo;
     }
 
-    public void setMonedaSalida(String monedaSalida) {
-        this.monedaSalida = monedaSalida;
+    public void setSímbolo(String símbolo) {
+        this.simbolo = símbolo;
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
     }
 
     @Override
     public String toString() {
-        return "Moneda{" +
-                "monedaBase='" + monedaBase + '\'' +
-                ", monedaSalida='" + monedaSalida + '\'' +
-                '}';
+        return "Moneda: (" + sigla + ") " + nombreCompleto + "(Símbolo: " + simbolo + ").";
     }
 }
