@@ -1,6 +1,7 @@
 package com.aluracursos.conversordemonedas.servicios;
 
 import com.aluracursos.conversordemonedas.modelos.Clave;
+import com.aluracursos.conversordemonedas.modelos.Consulta;
 import com.aluracursos.conversordemonedas.modelos.Respuesta;
 import com.google.gson.Gson;
 
@@ -15,11 +16,21 @@ public class Llamador {
     private String apiRuta = ("https://v6.exchangerate-api.com/v6/");
     Clave clave = new Clave();
 
-    public String generaDireccion(String monedaBase, String monedaSalida) {
+    //Dirección para búsqueda por pares de monedas
+//    public String generaDireccion(String monedaBase, String monedaTarget) {
+//        String apiKey = clave.obtieneClave();
+//        String direccion = apiRuta + apiKey + "/pair/"+ monedaBase + "/" + monedaTarget;
+//        return direccion;
+//    }
+
+    public String generaDireccion(Consulta consulta){
         String apiKey = clave.obtieneClave();
-        String direccion = apiRuta + apiKey + "/pair/"+ monedaBase + "/" + monedaSalida;
+        String direccion = apiRuta + apiKey + "/pair/"+ consulta.getMonedaBase().getSigla() + "/" + consulta.getMonedaTarget().getSigla();
         return direccion;
     }
+
+    //otros constructores de dirección para otros métodos de búsqueda (extra)
+
 
     //llama a base de datos
     public Respuesta llamadaABaseDeDatos(String direccion) {
@@ -45,11 +56,13 @@ public class Llamador {
     }
 
 
-    //Captura el Json de respuesta y devuelve conversion_rate pára las monedas definidas
+    //Captura el Json de respuesta y devuelve conversion_rate
     public Double tasaConversion(Respuesta respuesta){
         Double tasaDeConversion = respuesta.conversion_rate();
         return tasaDeConversion;
     }
+
+
 
 
 

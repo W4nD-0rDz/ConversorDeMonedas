@@ -6,6 +6,8 @@ public class Moneda {
     private String nombreCompleto;
     private String simbolo;
 
+    public Moneda(){};
+
     public Moneda(String sigla, String nombreCompleto, String simbolo) {
         this.sigla = sigla;
         this.nombreCompleto = nombreCompleto;
@@ -38,6 +40,6 @@ public class Moneda {
 
     @Override
     public String toString() {
-        return "Moneda: (" + sigla + ") " + nombreCompleto + "(Símbolo: " + simbolo + ").";
+        return "Moneda: (" + sigla + ") " + nombreCompleto + " (Símbolo: " + simbolo + ").";
     }
 }
