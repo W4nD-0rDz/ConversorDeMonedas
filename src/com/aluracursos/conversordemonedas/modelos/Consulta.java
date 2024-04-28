@@ -1,10 +1,13 @@
 package com.aluracursos.conversordemonedas.modelos;
 
+import java.time.LocalDateTime;
+
 public class Consulta {
     private Moneda monedaBase;
     private Moneda monedaTarget;
     private Double valorACambiar;
     private Double valorCambiado;
+    private LocalDateTime fechaHora;
     private Double tasa;
 
 
@@ -13,6 +16,7 @@ public class Consulta {
         this.monedaTarget = monedaTarget;
         this.valorACambiar = null;
         this.valorCambiado = null;
+        this.fechaHora = null;
         this.tasa = null;
     }
 
@@ -26,6 +30,10 @@ public class Consulta {
 
     public void setValorCambiado(Double valorCambiado) {
         this.valorCambiado = valorCambiado;
+    }
+
+    public void setFechaHora(LocalDateTime fechaHora) {
+        this.fechaHora = fechaHora;
     }
 
     public Moneda getMonedaBase() {
@@ -44,6 +52,10 @@ public class Consulta {
         return valorCambiado;
     }
 
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
+    }
+
     public Double getTasa() {
         return tasa;
     }
@@ -51,6 +63,7 @@ public class Consulta {
     @Override
     public String toString() {
         return "Consulta{" +
+                "Fecha: " + fechaHora +
                 "monedaBase=" + monedaBase.toString() +
                 ", monedaTarget=" + monedaTarget.toString() +
                 ", tasa=" + tasa +

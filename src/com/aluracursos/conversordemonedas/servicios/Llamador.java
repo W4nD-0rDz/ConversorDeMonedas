@@ -14,7 +14,8 @@ import java.net.http.HttpResponse;
 
 public class Llamador {
     private String apiRuta = ("https://v6.exchangerate-api.com/v6/");
-    Clave clave = new Clave();
+    private String apiKey1 = "exchangerate";
+    Asignador asigna = new Asignador();
 
     //Dirección para búsqueda por pares de monedas
 //    public String generaDireccion(String monedaBase, String monedaTarget) {
@@ -23,9 +24,10 @@ public class Llamador {
 //        return direccion;
 //    }
 
-    public String generaDireccion(Consulta consulta){
-        String apiKey = clave.obtieneClave();
-        String direccion = apiRuta + apiKey + "/pair/"+ consulta.getMonedaBase().getSigla() + "/" + consulta.getMonedaTarget().getSigla();
+    //En proceso de prueba se hardcodea con acceso a exchangeRate, porque las otras Api sugeridas son pagas.
+    public String generaDireccion(Consulta consulta, Clave clave){
+        //String apiKey = asigna.obtieneClave(apiKey1);
+        String direccion = apiRuta + clave.getClave() + "/pair/"+ consulta.getMonedaBase().getSigla() + "/" + consulta.getMonedaTarget().getSigla();
         return direccion;
     }
 

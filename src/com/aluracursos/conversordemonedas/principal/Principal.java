@@ -1,16 +1,10 @@
 package com.aluracursos.conversordemonedas.principal;
 
+import com.aluracursos.conversordemonedas.modelos.Clave;
 import com.aluracursos.conversordemonedas.modelos.Consulta;
-import com.aluracursos.conversordemonedas.servicios.Buscador;
-import com.aluracursos.conversordemonedas.servicios.Calculador;
-import com.aluracursos.conversordemonedas.servicios.Impresor;
-import com.aluracursos.conversordemonedas.servicios.Llamador;
-import com.aluracursos.conversordemonedas.modelos.Respuesta;
+import com.aluracursos.conversordemonedas.servicios.*;
 import com.aluracursos.conversordemonedas.modelos.Moneda;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Principal {
@@ -21,10 +15,15 @@ public class Principal {
         Llamador llama = new Llamador();
         Calculador calculadora = new Calculador();
         Impresor print = new Impresor();
+        Asignador asigna = new Asignador();
+        Habilitador habilita = new Habilitador();
         Consulta consulta;
         Moneda monedaBase = null;
         Moneda monedaTarget = null;
+        Clave clave = null;
+        String nombreApi = null;
         int option=1;
+        int apiNombre;
         int cont = 0;
         Moneda m = new Moneda();
 
@@ -39,11 +38,37 @@ public class Principal {
                 7. otro
                 0. salir
                 """;
+        String menuApi = """
+                Seleccione una agencia de cambio de divisas:
+                1. Exchange Rate
+                2. Crypto
+                3. Open Exchange
+                """;
 
         //Menu
         //Bienvenida
-        System.out.println("Bienvenido.");
+        System.out.println("Bienvenid@ a GlobalExchange.");
         do {
+            System.out.println(menuApi);
+            apiNombre = scanner.nextInt();
+            switch(apiNombre){
+                case 1:
+                    nombreApi = "exchangerate";
+                    break;
+                case 2:
+                    nombreApi = "coingecko";
+                    break;
+                case 3:
+                    nombreApi = "openexchangerates";
+                    break;
+                default:
+                    System.out.println("Intente nuevamente.");
+                    break;
+            }
+            System.out.print("Ingrese su clave de acceso a la base de datos: ");
+            clave = new Clave(nombreApi,scanner.nextLine());
+            habilita.guardaClave(clave);
+
             System.out.println(menuMonedas);
             option = scanner.nextInt();
 
@@ -98,21 +123,8 @@ public class Principal {
             consulta = new Consulta(monedaBase, monedaTarget);
         } while(option != 0 && cont <2);
 
-        //Ingrese el monto que desea convertir.
-        System.out.println("Ingrese el monto que desea convertir");
-        consulta.setValorACambiar(scanner.nextDouble());
-        consulta.setTasa(llama.tasaConversion(llama.llamadaABaseDeDatos(llama.generaDireccion(consulta))));
-        System.out.println(consulta.toString());
-        consulta.setValorCambiado(calculadora.cambia(consulta.getValorACambiar(), consulta.getTasa()));
-        print.infoCambioII(consulta);
-        //generar la instancia del objeto consulta
-        //enviar la consulta con los métodos de llamada
-        //almacener la respuesta en la consulta
-        //devolver el resultado
-        //Ingrese el código de la moneda en la que posee el dinero.
-        //Ingrese el código de la moneda a la que desea cambiar el dinero.
-        //Ingrese el monto que desea convertir.
-        //Confirme la transacción.
+        asigna.completaConsulta(consulta, clave);
+        print.muestraConsulta(consulta);
 
 
 

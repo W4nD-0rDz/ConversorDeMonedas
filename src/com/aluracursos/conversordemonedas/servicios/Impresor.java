@@ -3,7 +3,7 @@ package com.aluracursos.conversordemonedas.servicios;
 import com.aluracursos.conversordemonedas.modelos.Consulta;
 import com.aluracursos.conversordemonedas.modelos.Moneda;
 
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class Impresor {
@@ -33,24 +33,27 @@ public class Impresor {
         System.out.println(" ");
     }
 
-    public void infoCambio(Moneda monedaBase, Moneda monedaTarget, double tasa, double valor){
-        System.out.println("La tasa de conversión de " + monedaBase.getNombreCompleto() + " al " + monedaTarget.getNombreCompleto() + " es: "+ tasa);
-        System.out.println("Ingrese el monto a cambiar");
-        System.out.println(monedaBase.getSimbolo() + valor + " equivale a " + monedaTarget.getSimbolo() + calculo.cambia(valor,tasa));
-    }
+//    public void infoCambio(Moneda monedaBase, Moneda monedaTarget, double tasa, double valor){
+//        System.out.println("La tasa de conversión de " + monedaBase.getNombreCompleto() + " al " + monedaTarget.getNombreCompleto() + " es: "+ tasa);
+//        System.out.println("Ingrese el monto a cambiar");
+//        System.out.println(monedaBase.getSimbolo() + valor + " equivale a " + monedaTarget.getSimbolo() + calculo.cambia(valor,tasa));
+//    }
 
-    public void infoCambioII(Consulta consulta){
+    public void muestraConsulta(Consulta consulta){
+        muestraFecha(consulta.getFechaHora());
         System.out.println("La tasa de conversión de " + consulta.getMonedaBase().getNombreCompleto() + " al " + consulta.getMonedaTarget().getNombreCompleto() + " es: "+ consulta.getTasa());
-        System.out.println("Ingrese el monto a cambiar");
-        System.out.println(consulta.getMonedaBase().getSimbolo() + consulta.getValorACambiar() + " equivale a " + consulta.getMonedaTarget().getSimbolo() + calculo.cambia(consulta.getValorACambiar(),consulta.getTasa()));
+        System.out.println(consulta.getMonedaBase().getSimbolo() + consulta.getValorACambiar() + " equivale a " + consulta.getMonedaTarget().getSimbolo() + consulta.getValorCambiado());
     }
 
     //al infoCambio podría agregarse un verificador de símbolos; si fueran iguales agregar la sigla en su reemplazo.
 
-
-
     public void muestraMoneda(Moneda moneda){
         System.out.println(moneda.toString());
+    }
+
+    public void muestraFecha(LocalDateTime fechaHora){
+        System.out.println(fechaHora.getDayOfMonth() + "/" + fechaHora.getMonth() +
+                "/" + fechaHora.getYear() + " (" + fechaHora.getHour() + ":" + fechaHora.getMinute() + ")" );
     }
 
 }

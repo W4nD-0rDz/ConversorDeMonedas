@@ -33,9 +33,9 @@ public class Buscador {
     public String selectorSigla() {
         String sigla = null;
         Integer indice;
-        System.out.println("Elija el código de la divisa en la lista. Si no se encuentra presione 0");
         Map<Integer, String[]> mapaDivisas = mapeaDivisas();
         imprime.muestraMapa(mapaDivisas);
+        System.out.println("Elija el código de la divisa en la lista. Si no se encuentra presione 0");
         indice = input.nextInt();
         input.nextLine(); //para vaciar el contenido de input
         if (indice != 0) {
@@ -49,8 +49,8 @@ public class Buscador {
     public Moneda generaMoneda(String siglaDivisa) {
         String sigla = Divisa.valueOf(siglaDivisa).getSigla();
         String nombreCompleto = Divisa.valueOf(siglaDivisa).getNombreCompleto();
-        String símbolo = Divisa.valueOf(siglaDivisa).getSimbolo();
-        Moneda moneda = new Moneda(sigla, nombreCompleto, símbolo);
+        String simbolo = Divisa.valueOf(siglaDivisa).getSimbolo();
+        Moneda moneda = new Moneda(sigla, nombreCompleto, simbolo);
         return moneda;
     }
 
