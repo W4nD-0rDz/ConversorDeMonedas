@@ -20,7 +20,7 @@ public class Buscador {
     //buscador de moneda en enum de acuerdo con una letra ingresada. Devuelve un mapa de monedas posibles
     public Map<Integer, String[]> mapeaDivisas() {
         System.out.println("Ingrese al menos una letra para buscar la divisa");
-        String letras = input.nextLine();
+        String letras = String.valueOf(input.nextLine());
         Map<Integer, String[]> mapaDivisas = new HashMap<>();
         int indice = 1;
         for (Divisa divisa : Divisa.values()) {
@@ -40,8 +40,7 @@ public class Buscador {
         Map<Integer, String[]> mapaDivisas = mapeaDivisas();
         imprime.muestraMapa(mapaDivisas);
         System.out.println("Elija el código de la divisa en la lista. Si no se encuentra presione 0");
-        indice = input.nextInt();
-        input.nextLine(); //para vaciar el contenido de input
+        indice = Integer.parseInt(input.nextLine());
         if (indice != 0) {
             String[] infoDivisa = mapaDivisas.get(indice);
             sigla = infoDivisa[0];
@@ -54,38 +53,33 @@ public class Buscador {
         String sigla = Divisa.valueOf(siglaDivisa).getSigla();
         String nombreCompleto = Divisa.valueOf(siglaDivisa).getNombreCompleto();
         String simbolo = Divisa.valueOf(siglaDivisa).getSimbolo();
-        Moneda moneda = new Moneda(sigla, nombreCompleto, simbolo);
-        return moneda;
+        return new Moneda(sigla, nombreCompleto, simbolo);
     }
 
     public Moneda eligeMoneda(){
-        Moneda m = null;
+        Moneda m = new Moneda();
+        System.out.println("a");
         do{
-            int option = input.nextInt();
+            imprime.muestraMenu(2);
+            int option = Integer.parseInt(input.nextLine());
+            System.out.println("b");
             switch (option) {
                 case 1:
-                    m = generaMoneda("ARS");
-                    break;
+                    m = generaMoneda("ARS"); break;
                 case 2:
-                    m = generaMoneda("BOB");
-                    break;
+                    m = generaMoneda("BOB"); break;
                 case 3:
-                    m = generaMoneda("BRL");
-                    break;
+                    m = generaMoneda("BRL"); break;
                 case 4:
-                    m = generaMoneda("CLP");
-                    break;
+                    m = generaMoneda("CLP"); break;
                 case 5:
-                    m = generaMoneda("COP");
-                    break;
+                    m = generaMoneda("COP"); break;
                 case 6:
-                    m = generaMoneda("USD");
-                    break;
+                    m = generaMoneda("USD"); break;
                 case 7:
-                    m = generaMoneda(selectorSigla());
-                    break;
+                    m = generaMoneda(selectorSigla()); break;
                 default:
-                    System.out.println("Intente nuevamente.");
+                    imprime.muestraMenu(7);
             }
         }while (m == null);
         return m;

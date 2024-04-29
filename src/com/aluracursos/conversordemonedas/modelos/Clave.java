@@ -4,6 +4,10 @@ public class Clave {
     private String nombreApi;
     private String clave;
 
+    public Clave(){
+
+    };
+
     public Clave(String nombreApi, String clave) {
         this.nombreApi = nombreApi;
         this.clave = clave;

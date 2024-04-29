@@ -15,15 +15,34 @@ import java.util.Set;
 public class Archivador {
 
     public void guardaConsultas(Map<Integer, Consulta> listaDeConsultas,  Consulta consulta){
-        Integer key = listaDeConsultas.size() + 1;
+        Integer key = listaDeConsultas.size();
          listaDeConsultas.put(key, consulta);
     }
 
-    public FileWriter generaArchivo(Map<Integer, Consulta> listaDeConsultas) throws IOException {
-        FileWriter escritura = new FileWriter("consultas.json");
+    public FileWriter generaArchivo(Map<Integer, Consulta> listaDeConsultas) {
+        FileWriter escritura = null;
+        try {
+            escritura = new FileWriter("consultas.json");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //REVISAR: Exception in thread "main" java.lang.NullPointerException: Cannot invoke "com.google.gson.Gson.toJson(Object)" because "gson" is null
+        //	at com.aluracursos.conversordemonedas.servicios.Archivador.generaArchivo(Archivador.java:31)
+        //	at com.aluracursos.conversordemonedas.principal.Intermediador.menuConversor(Intermediador.java:110)
+        //	at com.aluracursos.conversordemonedas.principal.Principal.main(Principal.java:12)
+
         Gson gson = null;
-        escritura.write(gson.toJson(listaDeConsultas));
-        escritura.close();
+        try {
+            escritura.write(gson.toJson(listaDeConsultas));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            escritura.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return escritura;
     }
 }

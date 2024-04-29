@@ -17,50 +17,33 @@ import static java.lang.Integer.parseInt;
 
 public class Llamador {
     Scanner input = new Scanner(System.in);
+    Impresor imprime = new Impresor();
     private String apiRuta = ("https://v6.exchangerate-api.com/v6/");
-    //private String apiKey1 = "exchangerate";
-
-    //Dirección para búsqueda por pares de monedas
-//    public String generaDireccion(String monedaBase, String monedaTarget) {
-//        String apiKey = clave.obtieneClave();
-//        String direccion = apiRuta + apiKey + "/pair/"+ monedaBase + "/" + monedaTarget;
-//        return direccion;
-//    }
 
     public String selectorAPI(){
-        String nombreDeApi = null;
-        while (!input.hasNextInt()) {
-            System.out.println("Por favor, ingrese un número válido");
-            input.next();
-        }
-        int apiNumero = parseInt(String.valueOf(input.nextInt()));
-        switch (apiNumero) {
-            case 1:
-                nombreDeApi = "exchangerate";
-                break;
-            case 2:
-                nombreDeApi = "coingecko";
-                break;
-            case 3:
-                nombreDeApi = "openexchangerates";
-                break;
-            default:
-                System.out.println("Intente nuevamente.");
-                break;
-        }
+        String nombreDeApi= null;
+        imprime.muestraMenu(5);
+        int apiNumero = Integer.parseInt(input.nextLine());
+        do {
+            switch (apiNumero) {
+                case 1:
+                    nombreDeApi = "exchangerate"; break;
+                case 2:
+                    nombreDeApi = "coingecko"; break;
+                case 3:
+                    nombreDeApi = "openexchangerates"; break;
+                default:
+                    imprime.muestraMenu(7); break;
+            }
+        }while(nombreDeApi == null);
         return nombreDeApi;
     };
 
-
-
-    //En proceso de prueba se hardcodea con acceso a exchangeRate, porque las otras Api sugeridas son pagas.
+    //En proceso de prueba: se hardcodea con acceso a exchangeRate, porque las otras Api sugeridas en la consigna son pagas.
     public String generaDireccion(Consulta consulta, Clave clave){
         String direccion = apiRuta + clave.getClave() + "/pair/"+ consulta.getMonedaBase().getSigla() + "/" + consulta.getMonedaTarget().getSigla();
         return direccion;
     }
-
-    //otros constructores de dirección para otros métodos de búsqueda (extra)
-
 
     //llama a base de datos
     public Respuesta llamadaABaseDeDatos(String direccion) {
@@ -91,11 +74,4 @@ public class Llamador {
         Double tasaDeConversion = respuesta.conversion_rate();
         return tasaDeConversion;
     }
-
-
-
-
-
-
-
 }

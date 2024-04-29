@@ -21,7 +21,7 @@ public enum Divisa {
     BIF("Franco burundés", "BIF", "Fr"),
     BMD("Dólar de Bermudas", "BMD", "$"),
     BND("Dólar de Brunéi", "BND", "$"),
-    BOB("Boliviano", "BOB", "Bs."),
+    BOB("Peso Boliviano", "BOB", "Bs."),
     BRL("Real brasileño", "BRL", "R$"),
     BSD("Dólar bahameño", "BSD", "$"),
     BTN("Ngultrum butanés", "BTN", "Nu."),

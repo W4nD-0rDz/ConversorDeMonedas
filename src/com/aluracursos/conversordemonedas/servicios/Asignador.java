@@ -22,11 +22,7 @@ public class Asignador {
     Llamador llama = new Llamador();
     Calculador calculadora = new Calculador();
     private static final String ARCHIVO_CONFIG = "config.properties";
-    String menuAcepta = """
-                ¿De Acuerdo?
-                1. Si
-                0. No
-                """;
+
 
     //Clave: 7ebd990082fa5799c0503269 para exchangerate
     public void archivaClave(String nombreApi, String clave) {
@@ -73,54 +69,55 @@ public class Asignador {
     }
 
     //Este método completa la consulta con los datos necesarios para hacer la llamada a la API y la respuesta de esta.
-    //Es posible que este método sea el que sobrecargue al scanner...
     public void completaConsulta(Consulta consulta, Clave clave){
-        System.out.println("Ingrese el monto que desea convertir");
+        imprime.muestraMenu(6);
         //->Aquí se llama al scanner:
-        while(true){
-            if(scanner.hasNextDouble()){
-                Double valorACambiar = scanner.nextDouble();
-                if(valorACambiar >= 0){
-                    consulta.setValorACambiar(valorACambiar);
-                    break;
-                } else {
-                    System.out.println("Por favor, ingrese un monto válido mayor a 0");
-                }
-            } else {
-                System.out.println("Por favor ingrese un valor válido");
-                scanner.close();
-            }
+        Double valorACambiar = Double.parseDouble(scanner.nextLine());
+        System.out.println("paso a");
+        if(valorACambiar >= 0){
+            consulta.setValorACambiar(valorACambiar);
+            System.out.println("paso b");
+        } else {
+            imprime.muestraMenu(4);
         }
-        consulta.setValorACambiar(parseDouble(scanner.next()));
+        System.out.println("paso c");
+
         consulta.setTasa(llama.tasaConversion(llama.llamadaABaseDeDatos(llama.generaDireccion(consulta, clave))));
+        System.out.println("paso d");
         consulta.setFechaHora(LocalDateTime.now());
+        System.out.println("paso e");
         consulta.setValorCambiado(calculadora.cambia(consulta.getValorACambiar(), consulta.getTasa()));
-        scanner.close();
+        System.out.println("paso f");
         //System.out.println(consulta.toString());
+        System.out.println("paso g");
     }
 
     //valida la aceptación. Agregar manejo de excepciones si lo ingresado no es válido.
     //tal vez conviene que este método pregunte al usuario y así se puede agregar el try catch
     public boolean acepta(int respuestaUsuario){
-        if(respuestaUsuario == 1){
-            return true;
-        } else {
-            return false;
-        }
+        return respuestaUsuario == 1;
     }
 
-    public Consulta generaConsulta(Moneda moneda, int cont){
-        Consulta  consulta = new Consulta();
+    //Este método no está componiendo la consulta. No guarda la moneda dentro de la consulta
+    public void componeConsulta(Consulta consulta, Moneda moneda, int cont){
+        System.out.println("a");
         imprime.muestraMoneda(moneda);
-        imprime.muestraMenu(menuAcepta);
-        int respuestaUsuario = parseInt(scanner.next());
-        if(acepta(respuestaUsuario) == true && cont == 0){
+        System.out.println("b");
+        imprime.muestraMenu(3);
+        System.out.println("c");
+        int respuestaUsuario = Integer.parseInt(scanner.nextLine());
+        //scanner.nextLine();
+        System.out.println("d");
+        if(acepta(respuestaUsuario) && cont == 0){
             consulta.setMonedaBase(moneda);
-        } else if (acepta(respuestaUsuario) == true && cont ==1){
+            imprime.muestraMoneda(consulta.getMonedaBase());
+            System.out.println("e0");
+        } else if (acepta(respuestaUsuario) && cont ==1){
             consulta.setMonedaTarget(moneda);
+            imprime.muestraMoneda(consulta.getMonedaTarget());
+            System.out.println("e1");
         }
-        scanner.close();
-        return consulta;
+        System.out.println("f");
     }
 
 
