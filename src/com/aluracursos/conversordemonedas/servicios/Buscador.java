@@ -6,12 +6,16 @@ import com.aluracursos.conversordemonedas.modelos.Moneda;
 
 import java.util.*;
 
+import static java.lang.Integer.parseInt;
+
 
 public class Buscador {
     private String monedaBase;
     private String monedaObjetivo;
     Impresor imprime = new Impresor();
     Scanner input = new Scanner(System.in);
+    Habilitador habilita = new Habilitador();
+
 
     //buscador de moneda en enum de acuerdo con una letra ingresada. Devuelve un mapa de monedas posibles
     public Map<Integer, String[]> mapeaDivisas() {
@@ -52,6 +56,39 @@ public class Buscador {
         String simbolo = Divisa.valueOf(siglaDivisa).getSimbolo();
         Moneda moneda = new Moneda(sigla, nombreCompleto, simbolo);
         return moneda;
+    }
+
+    public Moneda eligeMoneda(){
+        Moneda m = null;
+        do{
+            int option = input.nextInt();
+            switch (option) {
+                case 1:
+                    m = generaMoneda("ARS");
+                    break;
+                case 2:
+                    m = generaMoneda("BOB");
+                    break;
+                case 3:
+                    m = generaMoneda("BRL");
+                    break;
+                case 4:
+                    m = generaMoneda("CLP");
+                    break;
+                case 5:
+                    m = generaMoneda("COP");
+                    break;
+                case 6:
+                    m = generaMoneda("USD");
+                    break;
+                case 7:
+                    m = generaMoneda(selectorSigla());
+                    break;
+                default:
+                    System.out.println("Intente nuevamente.");
+            }
+        }while (m == null);
+        return m;
     }
 
 

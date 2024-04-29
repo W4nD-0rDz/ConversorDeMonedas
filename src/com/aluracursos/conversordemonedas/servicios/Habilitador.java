@@ -6,8 +6,11 @@ import java.io.*;
 import java.util.Properties;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 public class Habilitador {
     private static final String ARCHIVO_CONFIG = "config.properties";
+
 
     public String obtieneClave(Clave clave) {
         try {
@@ -21,7 +24,7 @@ public class Habilitador {
         }
     }
 
-    public void guardaClave(Clave clave){
+    public void guardaClave(Clave clave) {
         try (InputStream input = new FileInputStream(ARCHIVO_CONFIG)) {
             Properties prop = new Properties();
             prop.load(input);
@@ -45,7 +48,7 @@ public class Habilitador {
         return nuevaClave;
     }
 
-    public void limpiaClave(){
+    public void limpiaClave() {
         try (InputStream input = new FileInputStream(ARCHIVO_CONFIG)) {
             Properties prop = new Properties();
             prop.load(input);
@@ -60,6 +63,5 @@ public class Habilitador {
             e.printStackTrace();
         }
     }
-
-
 }
+

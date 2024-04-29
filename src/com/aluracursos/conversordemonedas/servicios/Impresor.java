@@ -24,11 +24,21 @@ public class Impresor {
 //    }
 
     public static void muestraMapa(Map<Integer, String[]> mapa) {
-        System.out.println("Mapa de Divisas:");
+        System.out.println("Lista de Divisas que contienen las letras ingresadas:");
         for (Map.Entry<Integer, String[]> entrada : mapa.entrySet()) {
             Integer indice = entrada.getKey();
             String[] infoDivisa = entrada.getValue();
             System.out.println(indice + " - " + infoDivisa[0] + " - " + infoDivisa[1]);
+        }
+        System.out.println(" ");
+    }
+
+    public static void muestraLista(Map<Integer, Consulta> listaDeConsultas) {
+        System.out.println("Consultas realizadas durante la sesión:");
+        for (Map.Entry<Integer, Consulta> consultasRealizadas : listaDeConsultas.entrySet()) {
+            Integer indice = consultasRealizadas.getKey() + 1;
+            String consulta = consultasRealizadas.toString();
+            System.out.println("Consulta n°: " + indice + "\n" + consulta);
         }
         System.out.println(" ");
     }
@@ -42,18 +52,25 @@ public class Impresor {
     public void muestraConsulta(Consulta consulta){
         muestraFecha(consulta.getFechaHora());
         System.out.println("La tasa de conversión de " + consulta.getMonedaBase().getNombreCompleto() + " al " + consulta.getMonedaTarget().getNombreCompleto() + " es: "+ consulta.getTasa());
-        System.out.println(consulta.getMonedaBase().getSimbolo() + consulta.getValorACambiar() + " equivale a " + consulta.getMonedaTarget().getSimbolo() + consulta.getValorCambiado());
+        if (consulta.getMonedaBase().getSimbolo() == consulta.getMonedaTarget().getSimbolo()){
+            System.out.println(consulta.getMonedaBase().getSigla() + consulta.getValorACambiar() + " equivale a " + consulta.getMonedaTarget().getSigla() + consulta.getValorCambiado());
+        } else {
+            System.out.println(consulta.getMonedaBase().getSimbolo() + consulta.getValorACambiar() + " equivale a " + consulta.getMonedaTarget().getSimbolo() + consulta.getValorCambiado());
+        }
     }
 
-    //al infoCambio podría agregarse un verificador de símbolos; si fueran iguales agregar la sigla en su reemplazo.
-
     public void muestraMoneda(Moneda moneda){
-        System.out.println(moneda.toString());
+        System.out.println("Divisa seleccionada: " + moneda.toString());
     }
 
     public void muestraFecha(LocalDateTime fechaHora){
         System.out.println(fechaHora.getDayOfMonth() + "/" + fechaHora.getMonth() +
                 "/" + fechaHora.getYear() + " (" + fechaHora.getHour() + ":" + fechaHora.getMinute() + ")" );
+    }
+    public void muestraMenu(String menu){
+        System.out.println("");
+        System.out.println(menu);
+        System.out.println("");
     }
 
 }

@@ -10,6 +10,8 @@ public class Consulta {
     private LocalDateTime fechaHora;
     private Double tasa;
 
+    public Consulta() {
+    }
 
     public Consulta(Moneda monedaBase, Moneda monedaTarget) {
         this.monedaBase = monedaBase;
@@ -18,6 +20,14 @@ public class Consulta {
         this.valorCambiado = null;
         this.fechaHora = null;
         this.tasa = null;
+    }
+
+    public void setMonedaBase(Moneda monedaBase) {
+        this.monedaBase = monedaBase;
+    }
+
+    public void setMonedaTarget(Moneda monedaTarget) {
+        this.monedaTarget = monedaTarget;
     }
 
     public void setTasa(Double tasa) {

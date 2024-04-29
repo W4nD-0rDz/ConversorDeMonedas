@@ -11,11 +11,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Scanner;
+
+import static java.lang.Integer.parseInt;
 
 public class Llamador {
+    Scanner input = new Scanner(System.in);
     private String apiRuta = ("https://v6.exchangerate-api.com/v6/");
-    private String apiKey1 = "exchangerate";
-    Asignador asigna = new Asignador();
+    //private String apiKey1 = "exchangerate";
 
     //Dirección para búsqueda por pares de monedas
 //    public String generaDireccion(String monedaBase, String monedaTarget) {
@@ -24,9 +27,34 @@ public class Llamador {
 //        return direccion;
 //    }
 
+    public String selectorAPI(){
+        String nombreDeApi = null;
+        while (!input.hasNextInt()) {
+            System.out.println("Por favor, ingrese un número válido");
+            input.next();
+        }
+        int apiNumero = parseInt(String.valueOf(input.nextInt()));
+        switch (apiNumero) {
+            case 1:
+                nombreDeApi = "exchangerate";
+                break;
+            case 2:
+                nombreDeApi = "coingecko";
+                break;
+            case 3:
+                nombreDeApi = "openexchangerates";
+                break;
+            default:
+                System.out.println("Intente nuevamente.");
+                break;
+        }
+        return nombreDeApi;
+    };
+
+
+
     //En proceso de prueba se hardcodea con acceso a exchangeRate, porque las otras Api sugeridas son pagas.
     public String generaDireccion(Consulta consulta, Clave clave){
-        //String apiKey = asigna.obtieneClave(apiKey1);
         String direccion = apiRuta + clave.getClave() + "/pair/"+ consulta.getMonedaBase().getSigla() + "/" + consulta.getMonedaTarget().getSigla();
         return direccion;
     }
