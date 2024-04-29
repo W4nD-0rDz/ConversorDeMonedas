@@ -14,15 +14,22 @@ public class Habilitador {
     Scanner scanner = new Scanner(System.in);
 
 
-    public String validaClave(String nombreDeAPI) {
+    public boolean validaClave(String nombreDeAPI) {
+        boolean validez = false;
         try {
             Properties propiedades = new Properties();
             FileInputStream datos = new FileInputStream(ARCHIVO_CONFIG);
             propiedades.load(datos);
-            return propiedades.getProperty(nombreDeAPI);
+            String clave = String.valueOf(propiedades.getProperty(nombreDeAPI));
+            if (clave.equalsIgnoreCase("tuClaveAPI")){
+                return false;
+            } else {
+                return true;
+            }
         } catch (IOException e) {
             System.err.println("Error al leer el archivo de propiedades: " + e.getMessage());
-            return null;
+        } finally {
+            return validez;
         }
     }
 

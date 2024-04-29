@@ -102,7 +102,7 @@ public class Asignador {
     public void componeConsulta(Consulta consulta, Moneda moneda, int cont){
         System.out.println("a");
         imprime.muestraMoneda(moneda);
-        System.out.println("b");
+        System.out.println("¿Acepta la selección?");
         imprime.muestraMenu(3);
         System.out.println("c");
         int respuestaUsuario = Integer.parseInt(scanner.nextLine());

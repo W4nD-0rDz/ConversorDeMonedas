@@ -4,45 +4,44 @@ import com.aluracursos.conversordemonedas.modelos.Consulta;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Map;
-import java.util.Set;
+
 
 public class Archivador {
+    private static final String ARCHIVO_CONSULTAS = "consultas.json";
 
-    public void guardaConsultas(Map<Integer, Consulta> listaDeConsultas,  Consulta consulta){
+    public void guardaConsultas(Map<Integer, Consulta> listaDeConsultas, Consulta consulta) {
         Integer key = listaDeConsultas.size();
-         listaDeConsultas.put(key, consulta);
+        listaDeConsultas.put(key, consulta);
     }
 
-    public FileWriter generaArchivo(Map<Integer, Consulta> listaDeConsultas) {
-        FileWriter escritura = null;
+    public void generaArchivo() {
         try {
-            escritura = new FileWriter("consultas.json");
+            File archivo = new File(ARCHIVO_CONSULTAS);
+            if (archivo.createNewFile()) {
+                System.out.println("Se ha creado el archivo " + ARCHIVO_CONSULTAS);
+            } else {
+                System.out.println("El archivo " + ARCHIVO_CONSULTAS + " ya existe.");
+            }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Error al crear el archivo " + ARCHIVO_CONSULTAS);
+            e.printStackTrace();
         }
+    }
 
-        //REVISAR: Exception in thread "main" java.lang.NullPointerException: Cannot invoke "com.google.gson.Gson.toJson(Object)" because "gson" is null
-        //	at com.aluracursos.conversordemonedas.servicios.Archivador.generaArchivo(Archivador.java:31)
-        //	at com.aluracursos.conversordemonedas.principal.Intermediador.menuConversor(Intermediador.java:110)
-        //	at com.aluracursos.conversordemonedas.principal.Principal.main(Principal.java:12)
+    public void archivaLista(Map<Integer, Consulta> listaDeConsultas){
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new AdaptadorLocalDateTime())
+                .create();
 
-        Gson gson = null;
-        try {
-            escritura.write(gson.toJson(listaDeConsultas));
+        try (FileWriter fileWriter = new FileWriter(ARCHIVO_CONSULTAS)) {
+            gson.toJson(listaDeConsultas, fileWriter);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-        try {
-            escritura.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return escritura;
     }
 }

@@ -11,6 +11,12 @@ public class Consulta {
     private Double tasa;
 
     public Consulta() {
+        this.monedaBase = null;
+        this.monedaTarget = null;
+        this.valorACambiar = null;
+        this.valorCambiado = null;
+        this.fechaHora = null;
+        this.tasa = null;
     }
 
     public Consulta(Moneda monedaBase, Moneda monedaTarget) {
