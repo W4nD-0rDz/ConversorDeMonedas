@@ -11,6 +11,7 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 public class Intermediador {
+
     public void menuConversor() throws IOException {
         Habilitador habilita = new Habilitador();
         Buscador busca = new Buscador();
@@ -20,68 +21,69 @@ public class Intermediador {
         Impresor imprime = new Impresor();
         Scanner scanner = new Scanner(System.in);
 
-        int contador = 0; int operacion = 1;
-
-        Consulta consulta = new Consulta();
         Map<Integer, Consulta> listaDeConsultas = new TreeMap<>();
         Clave clave = new Clave();
 
-
         //Bienvenida
-        System.out.println("Bienvenid@ a Global Exchange.");
-        System.out.println("paso 0");
+        imprime.muestraMenu(0);
         //Acceso
         imprime.muestraMenu(1);
         clave.setNombreApi(llama.selectorAPI());
-        System.out.println("paso 1 OK ");
-        boolean validez = habilita.validaClave(clave.getNombreApi());
-        if (validez == false) {
+
+        if (!habilita.validaClave(clave.getNombreApi())) {
             clave.setClave(habilita.ingresaClave());
             habilita.guardaClave(clave);
-            System.out.println("paso 2 OK");
         }
         archiva.generaArchivo();
-        //construcción de una consulta
-        do {
-            System.out.println("paso 3 OK");
-            Moneda m = null;
-            do {
-                m = busca.eligeMoneda();
-                System.out.println("contador: " + contador);
-                asigna.componeConsulta(consulta, m, contador);
-                if (consulta.getMonedaBase() != null || consulta.getMonedaTarget() != null) {
-                    contador++;
-                    System.out.println("contador: " + contador);
-                }
-            } while (contador < 2);
-            System.out.println("paso 4");
-            imprime.muestraMoneda(consulta.getMonedaBase());
-            System.out.println("paso 5");
-            imprime.muestraMoneda(consulta.getMonedaTarget());
-            System.out.println("paso 6");
-            asigna.completaConsulta(consulta, clave);
-            System.out.println("paso 7");
-            imprime.muestraConsulta(consulta);
-            System.out.println("paso 8");
-            //almacenamiento de consultas
-            archiva.guardaConsultas(listaDeConsultas, consulta);
-            System.out.println("paso 9");
-            System.out.println("Desea realizar una nueva operación?");
-            imprime.muestraMenu(3);
-            operacion = scanner.nextInt();
-            if (operacion == 1) {
-                consulta = new Consulta();
-                contador = 0;
-                System.out.println("paso 10");
-            }
-        } while (operacion == 1);
 
-        System.out.println("paso 12 OK");
-        Impresor.muestraLista(listaDeConsultas);
+        do {
+            //Inicia una consulta
+            Consulta consulta = new Consulta();
+            int contador = 0;
+
+            //FUNCIONA pero VER de optimizar!!!
+            do {
+                if (contador == 0) {
+                    do {
+                        imprime.muestraMenu(14);
+                        consulta.setMonedaBase(busca.eligeMoneda());
+                        if (consulta.getMonedaBase() != null) {
+                            contador++;
+                            System.out.println(contador);
+                            imprime.muestraMoneda(consulta.getMonedaBase());
+                        }
+                    } while (consulta.getMonedaBase() == null);
+                } else if (contador == 1) {
+                    do {
+                        imprime.muestraMenu(15);
+                        consulta.setMonedaTarget(busca.eligeMoneda());
+                        if (consulta.getMonedaTarget() != null) {
+                            contador++;
+                            imprime.muestraMoneda(consulta.getMonedaTarget());
+                            System.out.println(contador);
+                        }
+                    } while (consulta.getMonedaTarget() == null);
+                }
+            } while (consulta.getMonedaBase() == null || consulta.getMonedaTarget() == null);
+
+            //Lanza la consulta a la Base de Datos y completa la operación
+            asigna.completaConsulta(consulta, clave);
+            imprime.muestraConsulta(consulta);
+
+            //Almacena consulta
+            archiva.guardaConsultas(listaDeConsultas, consulta);
+
+            //Reinicia el armador de consultas
+            imprime.muestraMenu(10);
+
+        } while (habilita.acepta());
+        imprime.muestraMenu(13);
+        imprime.muestraGenerico(listaDeConsultas);
 
         //archiva la lista de consultas realizadas
-        System.out.println("paso 13");
         archiva.archivaLista(listaDeConsultas);
+
+        //resetea la clave en el archivo
         habilita.limpiaClave();
     }
 }

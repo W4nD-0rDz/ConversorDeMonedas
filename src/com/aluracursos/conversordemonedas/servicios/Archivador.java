@@ -37,7 +37,6 @@ public class Archivador {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new AdaptadorLocalDateTime())
                 .create();
-
         try (FileWriter fileWriter = new FileWriter(ARCHIVO_CONSULTAS)) {
             gson.toJson(listaDeConsultas, fileWriter);
         } catch (IOException e) {

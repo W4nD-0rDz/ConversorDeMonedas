@@ -78,11 +78,7 @@ public class Consulta {
 
     @Override
     public String toString() {
-        return "Consulta{" +
-                "Fecha: " + fechaHora +
-                "monedaBase=" + monedaBase.toString() +
-                ", monedaTarget=" + monedaTarget.toString() +
-                ", tasa=" + tasa +
-                '}';
+        return "Consulta [Base: " + monedaBase.toString() + "; Target: " + monedaTarget.toString() + "; tipo de cambio:" + tasa + "]" +
+                "\n [Monto base: " + monedaBase.getSimbolo() + valorACambiar + "; Monto Target: " + monedaTarget.getSimbolo() + valorCambiado + "]";
     }
 }

@@ -22,7 +22,6 @@ public class Llamador {
 
     public String selectorAPI(){
         String nombreDeApi= null;
-        imprime.muestraMenu(5);
         int apiNumero = Integer.parseInt(input.nextLine());
         do {
             switch (apiNumero) {

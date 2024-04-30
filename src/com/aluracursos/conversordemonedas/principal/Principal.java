@@ -1,9 +1,6 @@
 package com.aluracursos.conversordemonedas.principal;
 
-
 import java.io.IOException;
-
-
 
 public class Principal {
 
