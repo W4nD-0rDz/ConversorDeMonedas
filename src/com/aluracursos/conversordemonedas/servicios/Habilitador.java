@@ -1,6 +1,6 @@
 package com.aluracursos.conversordemonedas.servicios;
-import com.aluracursos.conversordemonedas.modelos.Clave;
-import com.aluracursos.conversordemonedas.modelos.Respuesta;
+import com.aluracursos.conversordemonedas.modelo.Clave;
+import com.aluracursos.conversordemonedas.modelo.Respuesta;
 import com.google.gson.JsonSyntaxException;
 import java.io.*;
 import java.util.Properties;

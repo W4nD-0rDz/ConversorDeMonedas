@@ -1,6 +1,6 @@
 package com.aluracursos.conversordemonedas.servicios;
 
-import com.aluracursos.conversordemonedas.modelos.Consulta;
+import com.aluracursos.conversordemonedas.modelo.Consulta;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

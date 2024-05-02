@@ -1,14 +1,14 @@
 package com.aluracursos.conversordemonedas.principal;
 
-import com.aluracursos.conversordemonedas.modelos.Clave;
-import com.aluracursos.conversordemonedas.modelos.Consulta;
+import com.aluracursos.conversordemonedas.modelo.Clave;
+import com.aluracursos.conversordemonedas.modelo.Consulta;
 import com.aluracursos.conversordemonedas.servicios.*;
 
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Intermediador {
+public class Controlador {
 
     public void menuConversor() throws IOException {
         Habilitador habilita = new Habilitador();

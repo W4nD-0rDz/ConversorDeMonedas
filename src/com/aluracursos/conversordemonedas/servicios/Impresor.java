@@ -1,6 +1,6 @@
 package com.aluracursos.conversordemonedas.servicios;
-import com.aluracursos.conversordemonedas.modelos.Consulta;
-import com.aluracursos.conversordemonedas.modelos.Moneda;
+import com.aluracursos.conversordemonedas.modelo.Consulta;
+import com.aluracursos.conversordemonedas.modelo.Moneda;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Map;

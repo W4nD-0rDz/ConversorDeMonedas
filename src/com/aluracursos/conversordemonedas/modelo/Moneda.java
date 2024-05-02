@@ -1,4 +1,4 @@
-package com.aluracursos.conversordemonedas.modelos;
+package com.aluracursos.conversordemonedas.modelo;
 
 public class Moneda {
 

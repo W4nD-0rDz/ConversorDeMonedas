@@ -1,6 +1,6 @@
 package com.aluracursos.conversordemonedas.servicios;
 import com.aluracursos.conversordemonedas.enumeraciones.Divisa;
-import com.aluracursos.conversordemonedas.modelos.Moneda;
+import com.aluracursos.conversordemonedas.modelo.Moneda;
 import java.util.*;
 
 public class Buscador {
