@@ -2,68 +2,40 @@ package com.aluracursos.conversordemonedas.principal;
 
 import com.aluracursos.conversordemonedas.modelos.Clave;
 import com.aluracursos.conversordemonedas.modelos.Consulta;
-import com.aluracursos.conversordemonedas.modelos.Moneda;
 import com.aluracursos.conversordemonedas.servicios.*;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.TreeMap;
 
 public class Intermediador {
 
     public void menuConversor() throws IOException {
         Habilitador habilita = new Habilitador();
-        Buscador busca = new Buscador();
-        Llamador llama = new Llamador();
         Asignador asigna = new Asignador();
         Archivador archiva = new Archivador();
         Impresor imprime = new Impresor();
-        Scanner scanner = new Scanner(System.in);
-
         Map<Integer, Consulta> listaDeConsultas = new TreeMap<>();
         Clave clave = new Clave();
 
         //Bienvenida
         imprime.muestraMenu(0);
+
+        //limpia archivos de la sesión anterior
+        archiva.borraArchivo();
+
         //Acceso
-        imprime.muestraMenu(1);
-        clave.setNombreApi(llama.selectorAPI());
-
-        if (!habilita.validaClave(clave.getNombreApi())) {
-            clave.setClave(habilita.ingresaClave());
-            habilita.guardaClave(clave);
-        }
-        archiva.generaArchivo();
-
+        int intentos = 0;
         do {
-            //Inicia una consulta
-            Consulta consulta = new Consulta();
-            int contador = 0;
+            intentos = habilita.manejaAcceso(clave);
+        } while (intentos <= 3 && !habilita.validaClave(clave));
 
-            //FUNCIONA pero VER de optimizar!!!
+        //Construye consultas
+        do {
+            Consulta consulta = new Consulta();
+            //Inicia una consulta
             do {
-                if (contador == 0) {
-                    do {
-                        imprime.muestraMenu(14);
-                        consulta.setMonedaBase(busca.eligeMoneda());
-                        if (consulta.getMonedaBase() != null) {
-                            contador++;
-                            System.out.println(contador);
-                            imprime.muestraMoneda(consulta.getMonedaBase());
-                        }
-                    } while (consulta.getMonedaBase() == null);
-                } else if (contador == 1) {
-                    do {
-                        imprime.muestraMenu(15);
-                        consulta.setMonedaTarget(busca.eligeMoneda());
-                        if (consulta.getMonedaTarget() != null) {
-                            contador++;
-                            imprime.muestraMoneda(consulta.getMonedaTarget());
-                            System.out.println(contador);
-                        }
-                    } while (consulta.getMonedaTarget() == null);
-                }
+                asigna.manejaConsulta(consulta);
             } while (consulta.getMonedaBase() == null || consulta.getMonedaTarget() == null);
 
             //Lanza la consulta a la Base de Datos y completa la operación
@@ -73,17 +45,18 @@ public class Intermediador {
             //Almacena consulta
             archiva.guardaConsultas(listaDeConsultas, consulta);
 
-            //Reinicia el armador de consultas
+            //muestra reinicio de constructor de consultas
             imprime.muestraMenu(10);
 
         } while (habilita.acepta());
+
         imprime.muestraMenu(13);
         imprime.muestraGenerico(listaDeConsultas);
 
-        //archiva la lista de consultas realizadas
-        archiva.archivaLista(listaDeConsultas);
+        //gestiona el archivado de la lista de consultas
+        archiva.manejaArchivo(listaDeConsultas);
 
-        //resetea la clave en el archivo
-        habilita.limpiaClave();
+        //resetea la clave en el archivo // ahora también la borra (remove(nombreAPI)
+        habilita.limpiaClave(clave);
     }
 }
