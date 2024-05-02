@@ -1,8 +1,6 @@
 package com.aluracursos.conversordemonedas.servicios;
-
 import com.aluracursos.conversordemonedas.enumeraciones.Divisa;
 import com.aluracursos.conversordemonedas.modelos.Moneda;
-
 import java.util.*;
 
 public class Buscador {
@@ -19,7 +17,8 @@ public class Buscador {
                 String letras = String.valueOf(input.nextLine());
                 int indice = 1;
                 for (Divisa divisa : Divisa.values()) {
-                    if (divisa.getNombreCompleto().toLowerCase().contains(letras.toLowerCase()) || divisa.getSigla().toLowerCase().contains(letras.toLowerCase())) {
+                    if (divisa.getNombreCompleto().toLowerCase().contains(letras.toLowerCase())
+                            || divisa.getSigla().toLowerCase().contains(letras.toLowerCase())) {
                         String[] infoDivisa = {divisa.getSigla(), divisa.getNombreCompleto()};
                         mapaDivisas.put(indice, infoDivisa);
                         indice++;

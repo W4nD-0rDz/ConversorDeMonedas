@@ -1,10 +1,8 @@
 package com.aluracursos.conversordemonedas.servicios;
-
 import com.aluracursos.conversordemonedas.modelos.Clave;
 import com.aluracursos.conversordemonedas.modelos.Consulta;
 import com.aluracursos.conversordemonedas.modelos.Respuesta;
 import com.google.gson.Gson;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -51,6 +49,7 @@ public class Llamador {
         String direccion = apiRuta + clave.getClave() + "/pair/" + consulta.getMonedaBase().getSigla() + "/" + consulta.getMonedaTarget().getSigla();
         return direccion;
     }
+
     public String generaDireccionPrueba(Clave clave) {
         String direccion = apiRuta + clave.getClave() + "/latest/USD";
         return direccion;

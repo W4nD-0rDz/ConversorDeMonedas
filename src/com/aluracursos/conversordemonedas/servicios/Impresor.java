@@ -1,14 +1,13 @@
 package com.aluracursos.conversordemonedas.servicios;
-
 import com.aluracursos.conversordemonedas.modelos.Consulta;
 import com.aluracursos.conversordemonedas.modelos.Moneda;
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Map;
 
 public class Impresor {
     Calculador calculo = new Calculador();
+    //TEXTOS PARA MENÚ
     String bienvenida = "Bienvenid@ a Alura Global Exchange.";
     String menuMonedas = """
             Seleccione el código de la moneda:

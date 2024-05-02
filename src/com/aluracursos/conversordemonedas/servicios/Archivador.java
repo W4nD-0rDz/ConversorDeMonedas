@@ -18,6 +18,7 @@ public class Archivador {
         Integer key = listaDeConsultas.size()+1;
         listaDeConsultas.put(key, consulta);
     }
+
     //Este método crea un archivo para almacenar la lista de consultas
     public void generaArchivo() {
         try {
@@ -32,6 +33,7 @@ public class Archivador {
             e.printStackTrace();
         }
     }
+
     //Este método convierte la lista de consultas en JSON y lo almacena en el archivo de tipo .json
     public void archivaLista(Map<Integer, Consulta> listaDeConsultas){
         Gson gson = new GsonBuilder()
@@ -43,6 +45,7 @@ public class Archivador {
             e.printStackTrace();
         }
     }
+
     //Este método concentra la operación de archivo de la lista de consultas
     public void manejaArchivo(Map<Integer, Consulta> listaDeConsultas){
         if(!listaDeConsultas.isEmpty()){

@@ -1,9 +1,7 @@
 package com.aluracursos.conversordemonedas.servicios;
-
 import com.aluracursos.conversordemonedas.modelos.Clave;
 import com.aluracursos.conversordemonedas.modelos.Respuesta;
 import com.google.gson.JsonSyntaxException;
-
 import java.io.*;
 import java.util.Properties;
 import java.util.Scanner;
@@ -14,7 +12,7 @@ public class Habilitador {
     Llamador llama = new Llamador();
     Scanner scanner = new Scanner(System.in);
 
-    //valida la aceptación. Agregar manejo de excepciones si lo ingresado no es válido.
+    //Este método valida la aceptación.
     public boolean acepta() {
         boolean aceptacion = false;
         try {
@@ -29,7 +27,7 @@ public class Habilitador {
         return aceptacion;
     }
 
-    //Solicita la clave  para que el siguiente método la guarde.
+    //Este método solicita la clave para que el siguiente método la guarde.
     public String ingresaClave() {
         imprime.muestraMenu(8);
         String nuevaClave = null;
@@ -134,19 +132,5 @@ public class Habilitador {
         }
     }
 
-//    //Innecesario por ahora; sirve cuando conexiones a distintas API
-//    public String obtieneClave(Clave clave) {
-//        String apiKeyArchivada = null;
-//        try {
-//            Properties propiedades = new Properties();
-//            FileInputStream datos = new FileInputStream(ARCHIVO_CONFIG);
-//            propiedades.load(datos);
-//            apiKeyArchivada = propiedades.getProperty(clave.getNombreApi());
-//            return apiKeyArchivada;
-//        } catch (IOException e) {
-//            System.err.println("Error al leer el archivo de propiedades: " + e.getMessage());
-//            return null;
-//        }
-//    }
 }
 

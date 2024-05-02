@@ -10,7 +10,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Asignador {
-    // La función de la clase Asignador es la de manejar los métodos de la clave y el completamiento de la consulta, por medio de llamador y calculador
     Habilitador habilita = new Habilitador();
     Impresor imprime = new Impresor();
     Llamador llama = new Llamador();
